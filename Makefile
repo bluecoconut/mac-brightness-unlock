@@ -10,6 +10,7 @@ test-hardware:
 
 test:
 	./scripts/test.sh
+	./scripts/test-release.sh
 
 release: app
 	cd build && ditto -c -k --sequesterRsrc --keepParent "Brightness Unlock.app" "Brightness-Unlock.zip"

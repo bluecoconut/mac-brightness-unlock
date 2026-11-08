@@ -21,11 +21,11 @@ The first push triggers the build workflow. Confirm its tests and build pass bef
 
 ## Publish a downloadable release
 
-The current app version is `2.0.0`. The tag must match `CFBundleShortVersionString` in `Resources/Info.plist`; the workflow rejects mismatched tags.
+The current app version is `2.0.1`. The tag must match `CFBundleShortVersionString` in `Resources/Info.plist`; the workflow rejects mismatched tags.
 
 ```sh
-git tag -a v2.0.0 -m 'Brightness Unlock 2.0.0: independent native brightness controls'
-git push origin v2.0.0
+git tag -a v2.0.1 -m 'Brightness Unlock 2.0.1: independent native brightness controls'
+git push origin v2.0.1
 ```
 
 The workflow creates a GitHub Release with `Brightness-Unlock.zip` and `Brightness-Unlock.zip.sha256`. GitHub also provides source archives. Subsequent `v*` tags follow the same process after updating the app version and incrementing `CFBundleVersion`.

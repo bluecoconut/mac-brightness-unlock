@@ -57,6 +57,6 @@ Private Apple APIs can change between macOS releases. Brightness Unlock limits r
 
 ## Automated builds and releases
 
-GitHub Actions runs the control tests, builds both CPU architectures, verifies the app signature and extracted archive, and uploads a downloadable `Brightness-Unlock.zip` for pushes to `main`, pull requests, and manual workflow runs. Pushing a matching version tag such as `v2.0.0` also publishes the app and its SHA-256 checksum to GitHub Releases.
+GitHub Actions runs the control tests, builds both CPU architectures, verifies the app signature and extracted archive, and uploads a downloadable `Brightness-Unlock.zip` for pushes to `main`, pull requests, and manual workflow runs. Pushing a matching version tag such as `v2.0.1` also publishes the app and its SHA-256 checksum to GitHub Releases.
 
 See [RELEASING.md](RELEASING.md) for the first push and release steps.

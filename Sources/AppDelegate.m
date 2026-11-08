@@ -187,7 +187,7 @@ static NSImage *BrightnessBurstImage(BOOL active) {
 
 - (void)showError:(NSString *)message {
     NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = @"Full Mac";
+    alert.messageText = @"Brightness Unlock";
     alert.informativeText = message;
     [alert runModal];
 }
@@ -251,7 +251,7 @@ static NSImage *BrightnessBurstImage(BOOL active) {
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     NSStatusBarButton *button = self.statusItem.button;
     button.image = BrightnessBurstImage(NO);
-    button.toolTip = @"Full Mac";
+    button.toolTip = @"Brightness Unlock";
     self.statusItem.menu = self.statusMenu;
 }
 
@@ -292,7 +292,7 @@ static NSImage *BrightnessBurstImage(BOOL active) {
             styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable
             backing:NSBackingStoreBuffered
             defer:NO];
-        window.title = @"Full Mac Settings";
+        window.title = @"Brightness Unlock Settings";
         window.releasedWhenClosed = NO;
 
         NSView *content = window.contentView;
@@ -742,7 +742,7 @@ static NSImage *BrightnessBurstImage(BOOL active) {
 
 - (void)showError:(NSString *)message {
     NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = self.displayName ?: @"Full Mac";
+    alert.messageText = self.displayName ?: @"Brightness Unlock";
     alert.informativeText = message;
     [alert runModal];
 }

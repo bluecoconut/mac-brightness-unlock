@@ -3,9 +3,9 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BUILD_DIR="${BUILD_DIR:-$ROOT/build}"
-APP_NAME="Full Mac"
+APP_NAME="Brightness Unlock"
 APP="$BUILD_DIR/$APP_NAME.app"
-EXECUTABLE="$APP/Contents/MacOS/FullMac"
+EXECUTABLE="$APP/Contents/MacOS/BrightnessUnlock"
 DEPLOYMENT_TARGET="${MACOSX_DEPLOYMENT_TARGET:-26.0}"
 ARCHS_VALUE="${ARCHS:-arm64 x86_64}"
 

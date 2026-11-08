@@ -1,5 +1,5 @@
 // Exercise the real transition code with a fake display; never touch hardware.
-#define main StudioXDRApplicationMain
+#define main BrightnessUnlockApplicationMain
 #import "../Sources/AppDelegate.m"
 #undef main
 
@@ -27,7 +27,7 @@
         self.writes = [NSMutableArray array];
         self.pending = [NSMutableArray array];
         self.testPreferences = [[NSUserDefaults alloc] initWithSuiteName:
-            [@"StudioXDRBrightness.tests." stringByAppendingString:NSUUID.UUID.UUIDString]];
+            [@"BrightnessUnlock.tests." stringByAppendingString:NSUUID.UUID.UUIDString]];
     }
     return self;
 }

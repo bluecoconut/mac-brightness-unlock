@@ -1,4 +1,4 @@
-#define main StudioXDRApplicationMain
+#define main BrightnessUnlockApplicationMain
 #import "../Sources/AppDelegate.m"
 #undef main
 @interface HardwareDisplay : DisplayController

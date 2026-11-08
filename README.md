@@ -1,28 +1,30 @@
-# Full Mac — Mac Brightness Unlock
+# Brightness Unlock
 
 A free, open-source macOS menu bar app that unlocks up to 1,000 nits of native SDR brightness on compatible Apple XDR displays, with independent controls for the MacBook Pro built-in screen and Studio Display XDR.
 
-Full Mac lives in the menu bar. Each screen has its own live brightness reading, boost switch, ambient-light reading, Auto Brightness control, and **Set to 1000 nits** action. The menu keeps the compact controls of Studio XDR Brightness and adds a section for every compatible screen.
+Brightness Unlock lives in the menu bar. Each screen has its own live brightness reading, boost switch, ambient-light reading, Auto Brightness control, and **Set to 1000 nits** action. The menu keeps the compact controls of Studio XDR Brightness and adds a section for every compatible screen.
+
+[**Download Brightness Unlock for macOS**](https://github.com/bluecoconut/mac-brightness-unlock/releases/latest/download/Brightness-Unlock.zip) · [Releases](https://github.com/bluecoconut/mac-brightness-unlock/releases)
 
 ## Download and install
 
-1. Open this repository’s **Releases** page and download **Full-Mac.zip** from the latest release’s Assets section.
-2. Unzip it and move **Full Mac.app** to `/Applications`.
+1. Open the [**Releases** page](https://github.com/bluecoconut/mac-brightness-unlock/releases/latest) and download **Brightness-Unlock.zip** from the latest release’s Assets section.
+2. Unzip it and move **Brightness Unlock.app** to `/Applications`.
 3. Open the app and use its menu bar icon to control each compatible screen.
 
 Requires **macOS 26 or newer**. The download is a universal app containing Apple Silicon and Intel binaries; actual brightness-unlock support depends on the display. Physically verified hardware is listed below.
 
 Release downloads are ad-hoc signed, not Developer ID signed or notarized. If macOS blocks the first launch, review the download and use **System Settings → Privacy & Security → Open Anyway** to approve it.
 
-Each release also includes `Full-Mac.zip.sha256`. To verify the downloaded archive, put both files in the same folder and run:
+Each release also includes `Brightness-Unlock.zip.sha256`. To verify the downloaded archive, put both files in the same folder and run:
 
 ```sh
-shasum -a 256 -c Full-Mac.zip.sha256
+shasum -a 256 -c Brightness-Unlock.zip.sha256
 ```
 
 ## How it works
 
-On the tested M4 Max MacBook Pro and Studio Display XDR, macOS exposes a normal SDR maximum of 600 nits and an Aurora maximum of 1000 nits. Full Mac uses Apple’s private native CoreBrightness / DisplayServices controls to set the Aurora multiplier to the display-reported maximum (1000 / 600, approximately 1.667×). It does not use gamma manipulation or an HDR overlay.
+On the tested M4 Max MacBook Pro and Studio Display XDR, macOS exposes a normal SDR maximum of 600 nits and an Aurora maximum of 1000 nits. Brightness Unlock uses Apple’s private native CoreBrightness / DisplayServices controls to set the Aurora multiplier to the display-reported maximum (1000 / 600, approximately 1.667×). It does not use gamma manipulation or an HDR overlay.
 
 - **Boost** enables the native multiplier while preserving that screen’s brightness slider.
 - **Set to 1000 nits** enables boost and moves that screen’s brightness slider to maximum.
@@ -46,15 +48,15 @@ Requires macOS 26 or newer and Xcode command-line tools.
 ```sh
 make test
 make build
-open "build/Full Mac.app"
+open "build/Brightness Unlock.app"
 ```
 
 The build is ad-hoc signed. Launch at Login and menu-bar visibility remain available in Settings. This update retains the previous app’s bundle identifier to preserve existing preferences and per-display Auto Brightness restoration entries.
 
-Private Apple APIs can change between macOS releases. Full Mac limits requests to each screen’s declared native Aurora range and reports rejected transitions.
+Private Apple APIs can change between macOS releases. Brightness Unlock limits requests to each screen’s declared native Aurora range and reports rejected transitions.
 
 ## Automated builds and releases
 
-GitHub Actions runs the control tests, builds both CPU architectures, verifies the app signature and extracted archive, and uploads a downloadable `Full-Mac.zip` for pushes to `main`, pull requests, and manual workflow runs. Pushing a matching version tag such as `v2.0.0` also publishes the app and its SHA-256 checksum to GitHub Releases.
+GitHub Actions runs the control tests, builds both CPU architectures, verifies the app signature and extracted archive, and uploads a downloadable `Brightness-Unlock.zip` for pushes to `main`, pull requests, and manual workflow runs. Pushing a matching version tag such as `v2.0.0` also publishes the app and its SHA-256 checksum to GitHub Releases.
 
 See [RELEASING.md](RELEASING.md) for the first push and release steps.

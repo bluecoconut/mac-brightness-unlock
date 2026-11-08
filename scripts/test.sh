@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-TEST_DIR="$(mktemp -d "${TMPDIR:-/tmp}/full-mac-tests.XXXXXX")"
+TEST_DIR="$(mktemp -d "${TMPDIR:-/tmp}/brightness-unlock-tests.XXXXXX")"
 trap 'rm -rf "$TEST_DIR"' EXIT
 xcrun clang -fobjc-arc -fmodules -Wall -Wextra \
     -framework AppKit -framework CoreGraphics -framework ServiceManagement \

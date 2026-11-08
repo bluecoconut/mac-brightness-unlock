@@ -32,24 +32,24 @@ jobs:
 
       - name: Verify app and archive
         run: |
-          archs=$(lipo -archs "build/Full Mac.app/Contents/MacOS/FullMac")
+          archs=$(lipo -archs "build/Brightness Unlock.app/Contents/MacOS/BrightnessUnlock")
           for arch in arm64 x86_64; do
             case " $archs " in
               *" $arch "*) ;;
               *) echo "Missing architecture: $arch" >&2; exit 1 ;;
             esac
           done
-          codesign --verify --deep --strict "build/Full Mac.app"
-          ditto -x -k "build/Full-Mac.zip" "$RUNNER_TEMP/verify"
-          test -x "$RUNNER_TEMP/verify/Full Mac.app/Contents/MacOS/FullMac"
-          codesign --verify --deep --strict "$RUNNER_TEMP/verify/Full Mac.app"
-          cd build && shasum -a 256 -c Full-Mac.zip.sha256
+          codesign --verify --deep --strict "build/Brightness Unlock.app"
+          ditto -x -k "build/Brightness-Unlock.zip" "$RUNNER_TEMP/verify"
+          test -x "$RUNNER_TEMP/verify/Brightness Unlock.app/Contents/MacOS/BrightnessUnlock"
+          codesign --verify --deep --strict "$RUNNER_TEMP/verify/Brightness Unlock.app"
+          cd build && shasum -a 256 -c Brightness-Unlock.zip.sha256
 
       - name: Upload workflow artifact
         uses: actions/upload-artifact@v7
         with:
-          name: Full-Mac-${{ github.sha }}
-          path: build/Full-Mac.zip
+          name: Brightness-Unlock-${{ github.sha }}
+          path: build/Brightness-Unlock.zip
           if-no-files-found: error
           archive: false
 
@@ -58,11 +58,24 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release upload "$GITHUB_REF_NAME" build/Full-Mac.zip build/Full-Mac.zip.sha256 --clobber
-          else
-            gh release create "$GITHUB_REF_NAME" build/Full-Mac.zip build/Full-Mac.zip.sha256 \
-              --verify-tag \
-              --generate-notes \
-              --title "Full Mac $GITHUB_REF_NAME"
+          gh_api() {
+            gh api -H 'User-Agent: OpenAI File Downloader, XaiImageApiFetch/1.0' "$@"
+          }
+          release_id=$(gh_api "repos/$GITHUB_REPOSITORY/releases/tags/$GITHUB_REF_NAME" --jq .id 2>/dev/null || true)
+          if [ -z "$release_id" ]; then
+            release_id=$(gh_api --method POST "repos/$GITHUB_REPOSITORY/releases" \
+              -f tag_name="$GITHUB_REF_NAME" \
+              -f name="Brightness Unlock $GITHUB_REF_NAME" \
+              -F generate_release_notes=true --jq .id)
           fi
+          for asset in Brightness-Unlock.zip Brightness-Unlock.zip.sha256; do
+            existing_id=$(gh_api "repos/$GITHUB_REPOSITORY/releases/$release_id/assets" \
+              --jq ".[] | select(.name == \"$asset\") | .id")
+            if [ -n "$existing_id" ]; then
+              gh_api --method DELETE "repos/$GITHUB_REPOSITORY/releases/assets/$existing_id"
+            fi
+            gh_api --method POST \
+              "https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/$release_id/assets?name=$asset" \
+              -H 'Content-Type: application/octet-stream' \
+              --input "build/$asset" --jq .browser_download_url
+          done

@@ -1,8 +1,24 @@
-# Full Mac
+# Full Mac — Mac Brightness Unlock
 
-Unlock the native brightness range on each compatible Apple XDR display, including the MacBook Pro’s built-in screen and Studio Display XDR.
+A free, open-source macOS menu bar app that unlocks up to 1,000 nits of native SDR brightness on compatible Apple XDR displays, with independent controls for the MacBook Pro built-in screen and Studio Display XDR.
 
 Full Mac lives in the menu bar. Each screen has its own live brightness reading, boost switch, ambient-light reading, Auto Brightness control, and **Set to 1000 nits** action. The menu keeps the compact controls of Studio XDR Brightness and adds a section for every compatible screen.
+
+## Download and install
+
+1. Open this repository’s **Releases** page and download **Full-Mac.zip** from the latest release’s Assets section.
+2. Unzip it and move **Full Mac.app** to `/Applications`.
+3. Open the app and use its menu bar icon to control each compatible screen.
+
+Requires **macOS 26 or newer**. The download is a universal app containing Apple Silicon and Intel binaries; actual brightness-unlock support depends on the display. Physically verified hardware is listed below.
+
+Release downloads are ad-hoc signed, not Developer ID signed or notarized. If macOS blocks the first launch, review the download and use **System Settings → Privacy & Security → Open Anyway** to approve it.
+
+Each release also includes `Full-Mac.zip.sha256`. To verify the downloaded archive, put both files in the same folder and run:
+
+```sh
+shasum -a 256 -c Full-Mac.zip.sha256
+```
 
 ## How it works
 
@@ -36,3 +52,9 @@ open "build/Full Mac.app"
 The build is ad-hoc signed. Launch at Login and menu-bar visibility remain available in Settings. This update retains the previous app’s bundle identifier to preserve existing preferences and per-display Auto Brightness restoration entries.
 
 Private Apple APIs can change between macOS releases. Full Mac limits requests to each screen’s declared native Aurora range and reports rejected transitions.
+
+## Automated builds and releases
+
+GitHub Actions runs the control tests, builds both CPU architectures, verifies the app signature and extracted archive, and uploads a downloadable `Full-Mac.zip` for pushes to `main`, pull requests, and manual workflow runs. Pushing a matching version tag such as `v2.0.0` also publishes the app and its SHA-256 checksum to GitHub Releases.
+
+See [RELEASING.md](RELEASING.md) for the first push and release steps.

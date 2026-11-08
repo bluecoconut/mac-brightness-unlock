@@ -1,0 +1,60 @@
+./scripts/test-hardware.sh
+PASS: Both physical XDR displays discovered
+PASS: First screen is the built-in MacBook display
+PASS: Pre-test restoration succeeded
+PASS: Pre-test restoration succeeded
+
+INITIAL | 2026-11-08 16:41:11 +0000
+MacBook Pro Built-in id=1 slider=1.000 baseNits=600.00 factor=1.000000 physicalNits=600.00 auto=0 maxAurora=1000 savedAuto=none
+Studio Display XDR id=4 slider=0.994 baseNits=591.28 factor=1.000000 physicalNits=591.28 auto=1 maxAurora=1000 savedAuto=none
+2026-11-08 11:41:12.764 hardware-tests[87167:8517546] Manual boost: auto=0 factor=1.666667 verified=1
+
+BUILT-IN BOOST ONLY | 2026-11-08 16:41:13 +0000
+MacBook Pro Built-in id=1 slider=1.000 baseNits=600.00 factor=1.666667 physicalNits=1000.00 auto=0 maxAurora=1000 savedAuto=0
+Studio Display XDR id=4 slider=0.994 baseNits=591.28 factor=1.000000 physicalNits=591.28 auto=1 maxAurora=1000 savedAuto=none
+PASS: Built-in screen reaches reported 1000 nits through native Aurora
+PASS: Built-in boost leaves external screen unchanged
+2026-11-08 11:41:15.291 hardware-tests[87167:8517546] Manual boost: auto=0 factor=1.666667 verified=1
+
+BOTH BOOSTED | 2026-11-08 16:41:16 +0000
+MacBook Pro Built-in id=1 slider=1.000 baseNits=600.00 factor=1.666667 physicalNits=1000.00 auto=0 maxAurora=1000 savedAuto=0
+Studio Display XDR id=4 slider=1.000 baseNits=600.00 factor=1.666667 physicalNits=1000.00 auto=0 maxAurora=1000 savedAuto=1
+PASS: Both displays hold reported 1000 nits independently
+
+BUILT-IN BOOST OFF | 2026-11-08 16:41:18 +0000
+MacBook Pro Built-in id=1 slider=1.000 baseNits=600.00 factor=1.000000 physicalNits=600.00 auto=0 maxAurora=1000 savedAuto=none
+Studio Display XDR id=4 slider=1.000 baseNits=600.00 factor=1.666667 physicalNits=1000.00 auto=0 maxAurora=1000 savedAuto=1
+PASS: Built-in boost off restores its original Auto Brightness setting
+PASS: External screen remains at 1000 nits when built-in boost is off
+
+BOTH RESTORED | 2026-11-08 16:41:22 +0000
+MacBook Pro Built-in id=1 slider=1.000 baseNits=600.00 factor=1.000000 physicalNits=600.00 auto=0 maxAurora=1000 savedAuto=none
+Studio Display XDR id=4 slider=1.000 baseNits=600.00 factor=1.000000 physicalNits=600.00 auto=1 maxAurora=1000 savedAuto=none
+PASS: External boost off restores its original Auto Brightness setting
+2026-11-08 11:41:23.461 hardware-tests[87167:8517546] Manual boost: auto=0 factor=1.666667 verified=1
+2026-11-08 11:41:23.464 hardware-tests[87167:8517546] Manual boost: auto=0 factor=1.666667 verified=1
+
+FINAL BOTH BOOSTED | 2026-11-08 16:41:25 +0000
+MacBook Pro Built-in id=1 slider=1.000 baseNits=600.00 factor=1.666667 physicalNits=1000.00 auto=0 maxAurora=1000 savedAuto=0
+Studio Display XDR id=4 slider=1.000 baseNits=600.00 factor=1.666667 physicalNits=1000.00 auto=0 maxAurora=1000 savedAuto=1
+PASS: Concurrent per-screen maximum actions both succeed
+
+STABILITY CHECK | 2026-11-08 16:41:30 +0000
+MacBook Pro Built-in id=1 slider=1.000 baseNits=600.00 factor=1.666667 physicalNits=1000.00 auto=0 maxAurora=1000 savedAuto=0
+Studio Display XDR id=4 slider=1.000 baseNits=600.00 factor=1.666667 physicalNits=1000.00 auto=0 maxAurora=1000 savedAuto=1
+PASS: Both displays remain at reported 1000 nits after settling
+ALL HARDWARE CHECKS PASSED. Values are macOS telemetry, not photometer measurements.
+
+SHIPPING MENU CHECKS
+PASS: MacBook Pro · Built-in controls=1000 nits size=248x150 rootFrame={{10, 11}, {228, 130}}
+PASS: Studio Display XDR controls=1000 nits size=248x150 rootFrame={{10, 11}, {228, 130}}
+PASS: Shipping menu construction, repeated topology rebuild, stable controllers, and per-screen targets
+
+NATIVE UI VERIFICATION
+The shipping menu control views were hosted in a temporary test window and operated through accessibility automation.
+PASS: Clicking the built-in boost switch off changed its reading from 1000 to 600 nits; external remained at 1000 nits.
+PASS: Clicking built-in Set to 1000 nits restored its 1000-nit reading.
+PASS: Clicking external boost off restored Auto Brightness On; external settled near 580 nits, built-in remained at 1000 nits.
+PASS: Clicking external Set to 1000 nits restored its 1000-nit reading.
+PASS: Final UI showed both switches On, both readings at 1000 nits, and separate per-screen controls.
+PASS: Installed Full Mac Settings reported the existing Launch at Login setting enabled.
